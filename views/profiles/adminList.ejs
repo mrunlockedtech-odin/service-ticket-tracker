@@ -3,7 +3,6 @@
 
     <main>
       <h1>All Users</h1>
-      <a href="/profiles/admin" id="admin">⚙</a>
       <div class="card-container">
         <% profiles.forEach(profile=> { %>
           <a class="text-decoration-none" href="/profiles/<%= profile._id %> ">
@@ -14,7 +13,7 @@
                   <%= profile.name %>
                 </h1>
                 <form action="/profiles/adminList/<%= profile._id %> " method="POST">
-                  <button type="submit"><%= profile.isAdmin ? 'Demote':'Elevate'  %> </button>
+                  <button type="submit" class="btn <%= profile.isAdmin ? 'btn-danger':'btn-primary' %> "><%= profile.isAdmin ? 'Demote':'Elevate'  %> </button>
                 </form>
               </div>
             </div>
