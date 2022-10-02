@@ -2,6 +2,13 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
+const commentSchema = new Schema({
+  owner:{type: Schema.Types.ObjectId, ref: 'Profile'},
+  content: String
+}, {
+  timestamps: true
+})
+
 const ticketSchema = new Schema({
   name: String,
   ticketNo: {
@@ -10,7 +17,7 @@ const ticketSchema = new Schema({
   },
   owner: {type: Schema.Types.ObjectId, ref:"Profile"},
   content: String,
-  comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
+  comments: [commentSchema],
   status: String,
 }, {
   timestamps: true

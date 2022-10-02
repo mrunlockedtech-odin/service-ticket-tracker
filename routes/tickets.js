@@ -7,7 +7,9 @@ const router = Router()
 
 router.get('/',ticketsCtrl.index)
 router.get('/new',isLoggedIn, ticketsCtrl.new)
+router.get('/:id', ticketsCtrl.show)
 router.post('/',ticketsCtrl.create)
+router.post('/:id',ticketsCtrl.addComment)
 
 
 export {

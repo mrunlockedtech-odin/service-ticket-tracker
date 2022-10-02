@@ -1,0 +1,46 @@
+main {
+  margin: auto 100px;
+  margin-top: 15px;
+  display: grid;
+  align-items: flex-start;
+  justify-content:left;
+  flex-direction: column;
+  grid-template-columns: auto auto auto;
+}
+#content {
+  border: #0d6efd solid 1px;
+  border-radius: 10px;
+  width: 1000px;
+  height: 300px;
+  margin-bottom: 50px;
+}
+#content > * {
+  margin: 5px;
+}
+#left-side {
+  grid-column: 1;
+}
+#right-side{
+  border-left: #0d6efd solid 3px;
+  margin: 15px;
+  grid-column: 3;
+  height: 200px;
+  padding: 10px;
+}
+#right-side > * {
+  margin: 5px;
+}
+#commentBox {
+  width: 1000px;
+  height: 100px;
+  margin: 20px auto;
+}
+#commentSection > form{
+  display: grid;
+  flex-direction: row;
+}
+#comment-content{
+  border: #0d6efd solid 1px;
+  padding: 2px;
+  border-radius: 5px;
+}

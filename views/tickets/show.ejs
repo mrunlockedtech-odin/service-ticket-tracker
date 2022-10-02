@@ -1,0 +1,78 @@
+<%- include('../partials/html-head') %>
+  <link rel="stylesheet" href="/stylesheets/show.css">
+  <%- include('../partials/nav') %>
+    <main>
+      <div id="left-side">
+        <h1 id="ticketTitle">
+          <%= ticket.name %>
+        </h1>
+        <p><strong>Ticket Number:</strong>
+          <%= ticket.ticketNo %>
+        </p>
+        <h3>Description</h3>
+        <div id="content">
+          <p>
+            <%= ticket.content %>
+          </p>
+        </div>
+        <div id="commentSection">
+          <h3>Comments</h3>
+          <div class="card-container">
+            <% ticket.comments.forEach(comment=> { %>
+              <div class="card">
+                <img src="<%= comment.owner.avatar %> " alt="<%= comment.owner.name %> avatar ">
+                <div class="card-body">
+                  <h1 class="card-title">
+                    <%= comment.owner.name %>
+                  </h1>
+                  <p id="comment-content"><%= comment.content %> </p>
+                  <p><%= comment.createdAt.toDateString() %> </p>
+                  <p><%= comment.createdAt.toTimeString() %> </p>
+                </div>
+              </div>
+              <%})%>
+          </div>
+          <form action="/tickets/<%= ticket._id %>" method="POST">
+            <label for="commentBox">
+              <input type="text" name="content" id="commentBox">
+            </label>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+          </form>
+        </div>
+      </div>
+      <div id="right-side">
+        <table>
+          <tbody>
+            <tr>
+              <td>Created By: </td>
+              <td>
+                <%= ticket.owner.name %>
+              </td>
+            </tr>
+            <tr>
+              <td>Created On: </td>
+              <td>
+                <%= ticket.createdAt.toDateString() %>, <%= ticket.createdAt.toTimeString() %>
+              </td>
+            </tr>
+            <tr>
+              <td>Updated At: </td>
+              <td>
+                <%= ticket.updatedAt.toDateString() %>, <%= ticket.updatedAt.toTimeString() %>
+              </td>
+            </tr>
+            <tr>
+              <td>Status:</td>
+              <td>
+                <%= ticket.status %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <form action="/tickets/<%= ticket._id %>/edit" method="GET">
+          <button class="btn btn-primary" type="submit">Edit Ticket</button>
+        </form>
+
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
