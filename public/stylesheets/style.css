@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background-color: #1a1a1a;
-  color: #f6f6f6;
+  background-color: #f6f6f6;
+  color: #172b4d;
   /* Use a system font, if none are available use any found sans-sarif font */
   font-family:    'Helvetica Neue',system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
   margin: 0;
@@ -24,8 +24,9 @@ nav {
   color: #1a1a1a;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   min-height: 60px;
+  border-bottom: #172b4d solid 1px;
 }
 #googleAuth{
   margin-left: auto;
@@ -58,4 +59,19 @@ main {
 
 .right {
   margin-left: auto;
+}
+#ticket-form > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 30px auto;
+  align-items: center;
+}
+#ticket-name {
+  width: 200px;
+}
+#ticket-description {
+  width: 500px;
+  height:300px;
 }

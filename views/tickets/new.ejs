@@ -1,0 +1,22 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <h1>Create New Ticket</h1>
+  <form action="/tickets" method="POST" id="ticket-form">
+    <label>
+      Ticket Name
+      <input type="text" name="name" id="ticket-name">
+    </label>
+    <label>
+      Issue Description
+      <input type="text" name="content" id="ticket-description">
+    </label>
+    <button class="btn btn-primary">Create Ticket</button>
+  </form>
+</main>
+
+
+
+
+<%- include('../partials/footer') %>
