@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <% tickets.forEach(ticket=> { %>
-            <% if (ticket.owner.equals(user?.profile._id)) { %>
+            <% if (ticket.owner.equals(user?.profile._id) || profile.isAdmin) { %>
               <tr>
                 <td>
                   <%= ticket.name %>

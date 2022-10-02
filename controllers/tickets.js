@@ -1,4 +1,5 @@
 import { Ticket } from '../models/ticket.js'
+import { Profile } from '../models/profile.js'
 
 function newTicket(req,res){
   res.render('tickets/new',{
@@ -10,10 +11,16 @@ function newTicket(req,res){
 function index(req,res){
   Ticket.find({})
   .then(tickets => {
-    res.render('tickets/index', {
-      tickets:tickets,
-      title: 'All Tickets',
+    console.log(req.user)
+    Profile.findById(req.user.profile._id)
+    .then(profile => {
+      res.render('tickets/index', {
+        tickets:tickets,
+        title: 'All Tickets',
+        profile:profile,
+      })
     })
+
   })
 }
 
