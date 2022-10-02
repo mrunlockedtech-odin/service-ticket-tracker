@@ -12,7 +12,7 @@ function index(req,res){
   .then(tickets => {
     res.render('tickets/index', {
       tickets:tickets,
-      title: 'All Tickets'
+      title: 'All Tickets',
     })
   })
 }
