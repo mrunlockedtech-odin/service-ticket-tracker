@@ -13,6 +13,9 @@
                 <h1 class="card-title">
                   <%= profile.name %>
                 </h1>
+                <form action="/profiles/adminList/<%= profile._id %> " method="POST">
+                  <button type="submit"><%= profile.isAdmin ? 'Demote':'Elevate'  %> </button>
+                </form>
               </div>
             </div>
           </a>

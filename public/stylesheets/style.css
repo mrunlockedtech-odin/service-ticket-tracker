@@ -73,6 +73,10 @@ main {
 .right {
   margin-left: auto;
 }
+#admin{
+  font-size: 40px;
+  text-decoration: none;
+}
 #ticket-form > * {
   display: flex;
   flex-direction: column;

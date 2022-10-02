@@ -16,3 +16,15 @@ h1 {
 #homeSelection > * {
   margin: auto 10px;
 }
+#adminPass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#adminPass > * {
+  margin: 15px auto;
+}
+#wrongPass {
+  color: red;
+}

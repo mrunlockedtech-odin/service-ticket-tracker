@@ -1,0 +1,18 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/nonUserPages.css">
+<%- include('../partials/nav') %>
+<main>
+  <h1>Please Enter The Admin Password</h1>
+  <% if (wrongPass) { %>
+   <h2 id="wrongPass">Incorrect Password, Please Try Again</h2>
+  <% } %>
+  <form action="/profiles/adminList" method="POST"
+  id="adminPass">
+  <label>
+    <input type="text" name="password" id="passwordEntry">
+  </label>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

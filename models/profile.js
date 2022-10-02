@@ -7,7 +7,11 @@ const profileSchema = new Schema({
   avatar: String,
   tickets:[{type: Schema.Types.ObjectId,ref:'Tickets'}],
   role: String,
-  orgs: [{type: Schema.Types.ObjectId, ref:'Orgs'}]
+  orgs: [{type: Schema.Types.ObjectId, ref:'Orgs'}],
+  isAdmin: {
+    type: Boolean,
+    default:false
+  }
 }, {
   timestamps: true
 })
