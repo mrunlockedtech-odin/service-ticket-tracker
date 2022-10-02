@@ -1,0 +1,26 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+
+<main>
+<table class="table">
+  <thead>
+    <th>Ticket Name</th>
+    <th>Ticket Number</th>
+    <th>Created Date</th>
+    <th>Last Updated</th>
+  </thead>
+  <tbody>
+    <% tickets.forEach(ticket => { %>
+     <tr>
+      <td><%= ticket.name %> </td>
+      <td><%= ticket.ticketNo %> </td>
+      <td><%= ticket.createdAt.toDateString() %> </td>
+      <td><%= ticket.updatedAt.toDateString()  %> </td>
+     </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+
+</main>
+<%- include('../partials/footer') %>

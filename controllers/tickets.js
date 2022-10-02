@@ -5,6 +5,19 @@ function newTicket(req,res){
     title: 'Create Ticket'
   })
 }
+
+
+function index(req,res){
+  Ticket.find({})
+  .then(tickets => {
+    res.render('tickets/index', {
+      tickets:tickets,
+      title: 'All Tickets'
+    })
+  })
+}
+
+
 function create(req,res){
 req.body.owner = req.user.profile._id
 req.body.status = "Open"
@@ -22,4 +35,5 @@ Ticket.countDocuments({})
 export {
   newTicket as new,
   create,
+  index
 }
