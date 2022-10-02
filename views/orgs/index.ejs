@@ -1,0 +1,30 @@
+<%- include('../partials/html-head') %>
+  <%- include('../partials/nav') %>
+
+  <main>
+    <h1>All Orgs</h1>
+    <% if (profile.isAdmin) { %>
+      <form action="/orgs" method="POST" id="org-new">
+        <label>
+          Org Name:
+          <input type="text" name="name" id="org-name">
+        </label>
+        <button class="btn btn-primary" type="submit">Add Org</button>
+      </form>
+    <% } %>
+
+    <div class="card-container">
+      <% orgs.forEach(org=> { %>
+        <a class="text-decoration-none" href="/orgs/<%= org._id %> ">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="card-title">
+                <%= org.name %>
+              </h1>
+            </div>
+          </div>
+        </a>
+        <% }) %>
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
