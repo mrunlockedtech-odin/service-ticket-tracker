@@ -8,6 +8,42 @@
   <h3>Contact Info</h3>
   <p>Phone Number: <%= profile.phoneNo ? profile.phoneNo: 'N/A' %> </p>
   <p>Email: <%= profile.email ? profile.email: 'N/A' %> </p>
+
+  <%if(tickets.length > 0){%>
+  <table class="table">
+    <thead>
+      <th>Ticket Name</th>
+      <th>Ticket Number</th>
+      <th>Created Date</th>
+      <th>Last Updated</th>
+    </thead>
+    <tbody>
+      <% tickets.forEach(ticket=> { %>
+        <% if (ticket.owner.equals(user?.profile._id) || profile?.isAdmin) { %>
+          <tr>
+            <td>
+              <a href="/tickets/<%= ticket.id %>"><%= ticket.name %></a>
+              
+            </td>
+            <td>
+              <%= ticket.ticketNo %>
+            </td>
+            <td>
+              <%= ticket.createdAt.toDateString() %>
+            </td>
+            <td>
+              <%= ticket.updatedAt.toDateString() %>
+            </td>
+          </tr>
+
+          <% } %>
+
+            <% }) %>
+    </tbody>
+  </table>
+  <%} else {%>
+    <h3>No Tickets for This User</h3>
+    <% } %> 
 </main>
 
 <%- include('../partials/footer') %>

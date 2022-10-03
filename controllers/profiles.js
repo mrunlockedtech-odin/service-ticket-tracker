@@ -1,4 +1,5 @@
 import { Profile } from '../models/profile.js'
+import { Ticket } from '../models/ticket.js'
 
 function index(req,res) {
   Profile.find({})
@@ -74,10 +75,15 @@ function adminStatusChange(req,res){
 function show(req,res){
   Profile.findById(req.params.id)
   .then(profile => {
-    res.render('profiles/show',{
-      profile:profile,
-      title: profile.name
+    Ticket.find({owner: req.params.id})
+    .then(tickets => {
+      res.render('profiles/show',{
+        profile:profile,
+        title: profile.name,
+        tickets:tickets
+      })
     })
+
   })
 }
 
