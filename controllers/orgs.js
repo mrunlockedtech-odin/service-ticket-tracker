@@ -45,10 +45,8 @@ function show(req,res){
 
 }
 function addUserOrg(req,res){
-  console.log(req.body.user)
   Org.findById(req.params.id)
   .then(newOrg => {
-    console.log(newOrg)
     Profile.findByIdAndUpdate(req.body.user,{org:newOrg},{new:true})
     .then(profile => {
       res.redirect(`/orgs/${req.params.id}`)

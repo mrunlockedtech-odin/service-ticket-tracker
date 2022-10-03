@@ -74,6 +74,7 @@ function adminStatusChange(req, res) {
 
 function show(req, res) {
   Profile.findById(req.params.id)
+  .populate('org')
     .then(profile => {
       Ticket.find({ owner: req.params.id })
         .then(tickets => {

@@ -7,7 +7,7 @@ const profileSchema = new Schema({
   avatar: String,
   tickets:[{type: Schema.Types.ObjectId,ref:'Tickets'}],
   role: String,
-  org: {type: Schema.Types.ObjectId, ref:'Orgs'},
+  org: {type: Schema.Types.ObjectId, ref:'Org'},
   title:String,
   email:String,
   phoneNo:String,
