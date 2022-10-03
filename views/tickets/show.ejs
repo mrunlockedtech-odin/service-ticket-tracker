@@ -28,6 +28,9 @@
                   <p id="comment-content"><%= comment.content %> </p>
                   <p><%= comment.createdAt.toDateString() %> </p>
                   <p><%= comment.createdAt.toTimeString() %> </p>
+                  <form action="/tickets/<%= ticket._id %>/<%= comment._id %>?_method=DELETE" method="POST" >
+                  <button type="submit" class="btn btn-danger" id="delete-button">X Delete Comment</button>
+                  </form>
                 </div>
               </div>
               <%})%>

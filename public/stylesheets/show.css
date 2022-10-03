@@ -44,3 +44,8 @@ main {
   padding: 2px;
   border-radius: 5px;
 }
+#delete-button{
+  font-size: 10px;
+  width: fit-content;
+  padding: 3px 6px;
+}

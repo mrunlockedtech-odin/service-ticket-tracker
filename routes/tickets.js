@@ -12,6 +12,7 @@ router.get('/:id',isLoggedIn, ticketsCtrl.show)
 router.post('/',isLoggedIn,ticketsCtrl.create)
 router.post('/:id',isLoggedIn,ticketsCtrl.addComment)
 router.put('/:id',isLoggedIn,ticketsCtrl.update)
+router.delete('/:ticketId/:commentId',isLoggedIn,ticketsCtrl.deleteComment)
 
 
 

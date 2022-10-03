@@ -1,5 +1,6 @@
 import { Ticket } from '../models/ticket.js'
 import { Profile } from '../models/profile.js'
+import { Query } from 'mongoose'
 
 function newTicket(req, res) {
   res.render('tickets/new', {
@@ -145,6 +146,15 @@ Ticket.findByIdAndUpdate(req.params.id, req.body, { new:true })
 })
 }
 
+function deleteComment(req,res){
+Ticket.findById(req.params.ticketId)
+.then(ticket => {
+  ticket.comments.remove({_id:req.params.commentId})
+  ticket.save()
+  res.redirect(`/tickets/${req.params.ticketId}`)
+})
+}
+
 export {
   newTicket as new,
   create,
@@ -152,5 +162,6 @@ export {
   show,
   addComment,
   edit,
-  update
+  update,
+  deleteComment,
 }
