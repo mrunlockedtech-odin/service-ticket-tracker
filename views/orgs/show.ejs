@@ -1,0 +1,38 @@
+<%- include('../partials/html-head') %>
+  <%- include('../partials/nav') %>
+  <main>
+    <h1>Members of <%= org.name %> </h1>
+    <% if (currentProfile.isAdmin) { %>
+     <form action="/orgs/<%= org.id %>?_method=PUT" method="POST" id="add-userOrg">
+      <label>
+        User:
+        <select name="user" id="userInOrg">
+          <% profiles.forEach(profile => { %>
+            <% if(!(profile.org?.equals(org._id))) {%> 
+            <option value="<%=profile.id%>"><%= profile.name %> </option>
+            <%}%>
+          <% }) %>
+        </select>
+      </label>
+      <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+    <% } %>
+    <div class="card-container">
+      <% profiles.forEach(profile=> { %>
+        <% if (profile.org?.equals(org._id)) { %>
+          <a class="text-decoration-none" href="/profiles/<%= profile._id %> ">
+            <div class="card">
+              <img src="<%= profile.avatar %> " alt="<%= profile.name %> avatar ">
+              <div class="card-body">
+                <h1 class="card-title">
+                  <%= profile.name %>
+                </h1>
+              </div>
+            </div>
+          </a>
+        <% } %>
+
+        <% }) %>
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
