@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <% tickets.forEach(ticket=> { %>
-        <% if (ticket.owner.equals(user?.profile._id) || profile?.isAdmin) { %>
+        <% if (ticket.owner.equals(user?.profile._id) || userProfile.isAdmin) { %>
           <tr>
             <td>
               <a href="/tickets/<%= ticket.id %>"><%= ticket.name %></a>
