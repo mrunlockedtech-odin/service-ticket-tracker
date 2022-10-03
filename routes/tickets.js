@@ -7,10 +7,10 @@ const router = Router()
 
 router.get('/',isLoggedIn,ticketsCtrl.index)
 router.get('/new',isLoggedIn, ticketsCtrl.new)
-router.get('/:id/edit',ticketsCtrl.edit)
-router.get('/:id', ticketsCtrl.show)
-router.post('/',ticketsCtrl.create)
-router.post('/:id',ticketsCtrl.addComment)
+router.get('/:id/edit',isLoggedIn,ticketsCtrl.edit)
+router.get('/:id',isLoggedIn, ticketsCtrl.show)
+router.post('/',isLoggedIn,ticketsCtrl.create)
+router.post('/:id',isLoggedIn,ticketsCtrl.addComment)
 router.put('/:id',isLoggedIn,ticketsCtrl.update)
 
 
