@@ -18,7 +18,10 @@ const ticketSchema = new Schema({
   owner: {type: Schema.Types.ObjectId, ref:"Profile"},
   content: String,
   comments: [commentSchema],
-  status: String,
+  status: {
+    type: String,
+    enum: ['Open','Closed','Resolved','Cancelled']
+  },
 }, {
   timestamps: true
 })

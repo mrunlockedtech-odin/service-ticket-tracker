@@ -1,0 +1,32 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <h1>Edit Ticket</h1>
+  <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" id="ticket-form">
+    <label>
+      Ticket Name
+      <input type="text" name="name" id="ticket-name" value="<%= ticket.name %> ">
+    </label>
+    <label>
+      Issue Description
+      <input type="text" name="content" id="ticket-description" value="<%= ticket.content %> ">
+    </label>
+    <label>
+      Status
+      <select name="status" id="ticket-status" value="<%= ticket.status %> ">
+        <option value="Open">Open</option>
+        <option value="Closed">Closed</option>
+        <option value="Resolved">Resolved</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+
+    </label>
+    <button class="btn btn-primary">Update Ticket</button>
+  </form>
+</main>
+
+
+
+
+<%- include('../partials/footer') %>

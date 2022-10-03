@@ -11,7 +11,6 @@ function newTicket(req, res) {
 function index(req, res) {
   Ticket.find({})
     .then(tickets => {
-      console.log(req.user)
       Profile.findById(req.user?.profile._id)
         .then(profile => {
           res.render('tickets/index', {
@@ -51,7 +50,6 @@ function show(req,res){
   .then(ticket => {
     Profile.findById(ticket.owner._id)
     .then(profile => {
-      console.log(profile)
       res.render('tickets/show',{
         title: `Ticket ${ticket.ticketNo}`,
         ticket:ticket,
@@ -63,7 +61,7 @@ function show(req,res){
 }
 
 function addComment(req,res){
-  console.log(req.body,req.params,req.user)
+
   Ticket.findById(req.params.id)
 
   .then(ticket => {
@@ -77,10 +75,30 @@ function addComment(req,res){
   })
 }
 
+function edit(req,res){
+  Ticket.findById(req.params.id)
+  .then(ticket => {
+    res.render('tickets/edit',{
+      ticket:ticket,
+      title:`Edit ${ticket.ticketNo}`
+    })
+  })
+}
+
+function update(req,res){
+console.log(req.body,req.params)
+Ticket.findByIdAndUpdate(req.params.id, req.body, { new:true })
+.then(ticket => {
+  res.redirect(`/tickets/${ticket._id}`)
+})
+}
+
 export {
   newTicket as new,
   create,
   index,
   show,
   addComment,
+  edit,
+  update
 }

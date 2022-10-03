@@ -69,9 +69,12 @@
             </tr>
           </tbody>
         </table>
-        <form action="/tickets/<%= ticket._id %>/edit" method="GET">
-          <button class="btn btn-primary" type="submit">Edit Ticket</button>
-        </form>
+        <% if (profile.isAdmin) { %>
+          <form action="/tickets/<%= ticket._id %>/edit" method="GET">
+            <button class="btn btn-primary" type="submit">Edit Ticket</button>
+          </form>
+        <% } %>
+
 
       </div>
     </main>
