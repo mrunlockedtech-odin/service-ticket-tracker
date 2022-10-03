@@ -71,10 +71,21 @@ function adminStatusChange(req,res){
   })
 }
 
+function show(req,res){
+  Profile.findById(req.params.id)
+  .then(profile => {
+    res.render('profiles/show',{
+      profile:profile,
+      title: profile.name
+    })
+  })
+}
+
 export {
   index,
   adminPass,
   showAdmins,
   showAdminsList,
   adminStatusChange,
+  show,
 }

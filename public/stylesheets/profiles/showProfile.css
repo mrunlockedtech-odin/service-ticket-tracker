@@ -1,0 +1,104 @@
+html {
+  box-sizing: border-box;
+}
+
+/* The Universal Selector */
+*, /* All elements*/
+*::before, /* All ::before pseudo-elements */
+*::after {
+  /* All ::after pseudo-elements */
+  /* height & width will now include border & padding by default but can be overridden as needed */
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #f6f6f6;
+  color: #172b4d;
+  /* Use a system font, if none are available use any found sans-sarif font */
+  font-family:    'Helvetica Neue',system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+}
+#create-issue{
+  padding: auto 0;
+  margin: auto 0;
+}
+
+nav {
+  background-color: #f6f6f6;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  min-height: 60px;
+  border-bottom: #0d6efd solid 1px;
+}
+#googleAuth{
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+}
+#googleAuth > * {
+  margin: auto 10px;
+  text-decoration: none;
+}
+#create-issue{
+  margin: 5px 20px;
+}
+nav > a {
+  margin:7px 20px;
+  text-decoration: none;
+}
+
+main {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.card {
+  display: flex;
+  flex-direction: row;
+  margin: 15px auto;
+  border-radius: 20px;
+}
+.card > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: #1a1a1a solid 2px;
+  margin: 10px;
+}
+
+.right {
+  margin-left: auto;
+}
+#admin{
+  font-size: 40px;
+  text-decoration: none;
+}
+#ticket-form > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 30px auto;
+  align-items: center;
+}
+#ticket-name {
+  width: 200px;
+
+}
+#ticket-description {
+  width: 500px;
+  height:300px;
+}
+.table {
+  width: 80%;
+}
+.table  a {
+  text-decoration: none;
+}
+img {
+  border-radius: 50%;
+}
