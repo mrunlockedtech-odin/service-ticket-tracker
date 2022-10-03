@@ -5,7 +5,7 @@ import { passDataToView } from '../middleware/middleware.js'
 
 const router = Router()
 
-router.get('/',ticketsCtrl.index)
+router.get('/',isLoggedIn,ticketsCtrl.index)
 router.get('/new',isLoggedIn, ticketsCtrl.new)
 router.get('/:id/edit',ticketsCtrl.edit)
 router.get('/:id', ticketsCtrl.show)

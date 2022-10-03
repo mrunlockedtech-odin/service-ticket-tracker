@@ -19,7 +19,14 @@ function index(req, res) {
             profile: profile,
           })
         })
-
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 
@@ -34,6 +41,10 @@ function create(req, res) {
         .then(ticket => {
           res.redirect('/tickets')
         })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 
 }
@@ -60,7 +71,19 @@ function show(req,res){
           currentUser:currentUser
         })
       })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/')
+      })
     })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/')
   })
 }
 
@@ -76,6 +99,14 @@ function addComment(req,res){
         res.redirect(`/tickets/${ticket._id}`)
 
     })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/')
   })
 }
 
@@ -91,6 +122,14 @@ function edit(req,res){
         admins:admins
       })
     })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/')
   })
 }
 
@@ -99,6 +138,10 @@ console.log(req.body,req.params)
 Ticket.findByIdAndUpdate(req.params.id, req.body, { new:true })
 .then(ticket => {
   res.redirect(`/tickets/${ticket._id}`)
+})
+.catch(err => {
+  console.log(err)
+  res.redirect('/')
 })
 }
 
