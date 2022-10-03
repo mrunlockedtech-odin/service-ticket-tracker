@@ -13,7 +13,8 @@ const ticketSchema = new Schema({
   name: String,
   ticketNo: {
     type: Number,
-    min: 0
+    min: 0,
+    default:1
   },
   owner: {type: Schema.Types.ObjectId, ref:"Profile"},
   content: String,
@@ -22,7 +23,11 @@ const ticketSchema = new Schema({
     type: String,
     enum: ['Open','Closed','Resolved','Cancelled']
   },
-  technician: {type: Schema.Types.ObjectId, ref:"Profile"}
+  technician: {type: Schema.Types.ObjectId, ref:"Profile"},
+  incIndex:{
+    type: Number,
+    default:2
+  }
 }, {
   timestamps: true
 })

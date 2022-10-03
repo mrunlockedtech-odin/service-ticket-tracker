@@ -8,6 +8,7 @@
           <th>Ticket Number</th>
           <th>Created Date</th>
           <th>Last Updated</th>
+          <th></th>
         </thead>
         <tbody>
           <% tickets.forEach(ticket=> { %>
@@ -25,6 +26,11 @@
                 </td>
                 <td>
                   <%= ticket.updatedAt.toDateString() %>
+                </td>
+                <td>
+                  <form action="/tickets/<%= ticket.id %>?_method=DELETE" method="POST">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
                 </td>
               </tr>
 

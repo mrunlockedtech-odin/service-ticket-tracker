@@ -35,124 +35,152 @@ function index(req, res) {
 function create(req, res) {
   req.body.owner = req.user.profile._id
   req.body.status = "Open"
-  Ticket.countDocuments({})
-    .then(count => {
-      req.body.ticketNo = count
-      Ticket.create(req.body)
-        .then(ticket => {
-          res.redirect('/tickets')
-        })
-    })
-    .catch(err => {
-      console.log(err)
-      res.redirect('/')
-    })
-
-}
-function show(req,res){
-  Ticket.findById(req.params.id)
-  .populate('owner')
-  .populate('technician')
-  .populate({
-    path: 'comments',
-    model:'commentSchema',
-    populate: {
-      path: 'owner'
+  Ticket.find().sort({ createdAt: -1 })
+  .then(oldTicket => {
+    console.log(oldTicket[0])
+    if(oldTicket[0]){
+      console.log(oldTicket.incIndex)
+      req.body.ticketNo = oldTicket[0].incIndex
+      req.body.incIndex = oldTicket[0].incIndex+1
     }
+    Ticket.create(req.body)
+    .then(ticket => {
+      res.redirect('/tickets')
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
   })
-  .then(ticket => {
-    Profile.findById(ticket.owner._id)
-    .then(profile => {
-      Profile.findById(req.user.profile._id)
-      .then(currentUser => {
-        res.render('tickets/show',{
-          title: `Ticket ${ticket.ticketNo}`,
-          ticket:ticket,
-          profile:profile,
-          currentUser:currentUser
+}
+
+function deleteTicket(req,res){
+console.log("I will delete a ticket")
+Ticket.findByIdAndDelete(req.params.id)
+.then(deletedTicket => {
+  Ticket.find().sort({ createdAt: -1 })
+  .then(newestTicket => {
+    Ticket.find({})
+    .then(allTickets => {
+      let indexArr = []
+      allTickets.forEach(ticket => {
+        indexArr.push(ticket.incIndex)
+      })
+      if(deletedTicket.incIndex > (Math.max(...indexArr))){
+          Ticket.updateOne({ticketNo:newestTicket[0].ticketNo},{$inc:{incIndex:1}})
+          .then(ticketTest => {
+            console.log(ticketTest)
+          })
+      }
+      res.redirect('/tickets')
+    })
+  })
+})
+}
+function show(req, res) {
+  Ticket.findById(req.params.id)
+    .populate('owner')
+    .populate('technician')
+    .populate({
+      path: 'comments',
+      model: 'commentSchema',
+      populate: {
+        path: 'owner'
+      }
+    })
+    .then(ticket => {
+      Profile.findById(ticket.owner._id)
+        .then(profile => {
+          Profile.findById(req.user.profile._id)
+            .then(currentUser => {
+              res.render('tickets/show', {
+                title: `Ticket ${ticket.ticketNo}`,
+                ticket: ticket,
+                profile: profile,
+                currentUser: currentUser
+              })
+            })
+            .catch(err => {
+              console.log(err)
+              res.redirect('/')
+            })
         })
-      })
-      .catch(err => {
-        console.log(err)
-        res.redirect('/')
-      })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
     })
     .catch(err => {
       console.log(err)
       res.redirect('/')
     })
-  })
-  .catch(err => {
-    console.log(err)
-    res.redirect('/')
-  })
 }
 
-function addComment(req,res){
+function addComment(req, res) {
 
   Ticket.findById(req.params.id)
 
-  .then(ticket => {
-    req.body.owner = req.user.profile._id
-    ticket.comments.push(req.body)
-    ticket.save()
-    .then(() => {
-        res.redirect(`/tickets/${ticket._id}`)
+    .then(ticket => {
+      req.body.owner = req.user.profile._id
+      ticket.comments.push(req.body)
+      ticket.save()
+        .then(() => {
+          res.redirect(`/tickets/${ticket._id}`)
 
+        })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
     })
     .catch(err => {
       console.log(err)
       res.redirect('/')
     })
-  })
-  .catch(err => {
-    console.log(err)
-    res.redirect('/')
-  })
 }
 
-function edit(req,res){
+function edit(req, res) {
   Ticket.findById(req.params.id)
-  .then(ticket => {
-    Profile.find({ isAdmin:true})
-    .then(admins => {
-      console.log(admins)
-      res.render('tickets/edit',{
-        ticket:ticket,
-        title:`Edit ${ticket.ticketNo}`,
-        admins:admins
-      })
+    .then(ticket => {
+      Profile.find({ isAdmin: true })
+        .then(admins => {
+          console.log(admins)
+          res.render('tickets/edit', {
+            ticket: ticket,
+            title: `Edit ${ticket.ticketNo}`,
+            admins: admins
+          })
+        })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
     })
     .catch(err => {
       console.log(err)
       res.redirect('/')
     })
-  })
-  .catch(err => {
-    console.log(err)
-    res.redirect('/')
-  })
 }
 
-function update(req,res){
-console.log(req.body,req.params)
-Ticket.findByIdAndUpdate(req.params.id, req.body, { new:true })
-.then(ticket => {
-  res.redirect(`/tickets/${ticket._id}`)
-})
-.catch(err => {
-  console.log(err)
-  res.redirect('/')
-})
+function update(req, res) {
+  console.log(req.body, req.params)
+  Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(ticket => {
+      res.redirect(`/tickets/${ticket._id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
 }
 
-function deleteComment(req,res){
-Ticket.findById(req.params.ticketId)
-.then(ticket => {
-  ticket.comments.remove({_id:req.params.commentId})
-  ticket.save()
-  res.redirect(`/tickets/${req.params.ticketId}`)
-})
+function deleteComment(req, res) {
+  Ticket.findById(req.params.ticketId)
+    .then(ticket => {
+      ticket.comments.remove({ _id: req.params.commentId })
+      ticket.save()
+      res.redirect(`/tickets/${req.params.ticketId}`)
+    })
 }
 
 export {
@@ -164,4 +192,5 @@ export {
   edit,
   update,
   deleteComment,
+  deleteTicket
 }
