@@ -20,8 +20,16 @@
         <option value="Resolved">Resolved</option>
         <option value="Cancelled">Cancelled</option>
       </select>
-
     </label>
+    <label>
+      Technician
+      <select name="technician" id="ticket-tech" value="<%= ticket.technician?.name %> ">
+        <% admins.forEach(admin => { %>
+         <option value="<%= admin._id %>" ><%= admin.name %> </option>
+        <% }) %>
+      </select>
+    </label>
+
     <button class="btn btn-primary">Update Ticket</button>
   </form>
 </main>

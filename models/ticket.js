@@ -22,6 +22,7 @@ const ticketSchema = new Schema({
     type: String,
     enum: ['Open','Closed','Resolved','Cancelled']
   },
+  technician: {type: Schema.Types.ObjectId, ref:"Profile"}
 }, {
   timestamps: true
 })

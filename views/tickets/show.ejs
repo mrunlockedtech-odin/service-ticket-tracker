@@ -67,9 +67,13 @@
                 <%= ticket.status %>
               </td>
             </tr>
+            <tr>
+              <td>Technician:</td>
+              <td><%= ticket.technician ? ticket.technician.name:'Unassigned' %> </td>
+            </tr>
           </tbody>
         </table>
-        <% if (profile.isAdmin) { %>
+        <% if (currentUser.isAdmin) { %>
           <form action="/tickets/<%= ticket._id %>/edit" method="GET">
             <button class="btn btn-primary" type="submit">Edit Ticket</button>
           </form>

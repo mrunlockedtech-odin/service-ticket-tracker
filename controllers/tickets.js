@@ -40,6 +40,7 @@ function create(req, res) {
 function show(req,res){
   Ticket.findById(req.params.id)
   .populate('owner')
+  .populate('technician')
   .populate({
     path: 'comments',
     model:'commentSchema',
@@ -50,13 +51,16 @@ function show(req,res){
   .then(ticket => {
     Profile.findById(ticket.owner._id)
     .then(profile => {
-      res.render('tickets/show',{
-        title: `Ticket ${ticket.ticketNo}`,
-        ticket:ticket,
-        profile:profile
+      Profile.findById(req.user.profile._id)
+      .then(currentUser => {
+        res.render('tickets/show',{
+          title: `Ticket ${ticket.ticketNo}`,
+          ticket:ticket,
+          profile:profile,
+          currentUser:currentUser
+        })
       })
     })
-
   })
 }
 
@@ -78,9 +82,14 @@ function addComment(req,res){
 function edit(req,res){
   Ticket.findById(req.params.id)
   .then(ticket => {
-    res.render('tickets/edit',{
-      ticket:ticket,
-      title:`Edit ${ticket.ticketNo}`
+    Profile.find({ isAdmin:true})
+    .then(admins => {
+      console.log(admins)
+      res.render('tickets/edit',{
+        ticket:ticket,
+        title:`Edit ${ticket.ticketNo}`,
+        admins:admins
+      })
     })
   })
 }
