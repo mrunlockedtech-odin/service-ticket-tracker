@@ -99,3 +99,6 @@ main {
 .table  a {
   text-decoration: none;
 }
+#logo {
+  border-radius: 0%;
+}

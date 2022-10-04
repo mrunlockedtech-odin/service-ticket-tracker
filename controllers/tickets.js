@@ -36,12 +36,12 @@ function create(req, res) {
   req.body.owner = req.user.profile._id
   req.body.status = "Open"
   Ticket.find().sort({ createdAt: -1 })
-  .then(oldTicket => {
-    console.log(oldTicket[0])
-    if(oldTicket[0]){
-      console.log(oldTicket.incIndex)
-      req.body.ticketNo = oldTicket[0].incIndex
-      req.body.incIndex = oldTicket[0].incIndex+1
+  .then(oldTickets => {
+    console.log(oldTickets[0])
+    if(oldTickets[0]){
+      console.log(oldTickets.incIndex)
+      req.body.ticketNo = oldTickets[0].incIndex
+      req.body.incIndex = oldTickets[0].incIndex+1
     }
     Ticket.create(req.body)
     .then(ticket => {
@@ -59,7 +59,7 @@ console.log("I will delete a ticket")
 Ticket.findByIdAndDelete(req.params.id)
 .then(deletedTicket => {
   Ticket.find().sort({ createdAt: -1 })
-  .then(newestTicket => {
+  .then(newestTickets => {
     Ticket.find({})
     .then(allTickets => {
       let indexArr = []
@@ -67,7 +67,7 @@ Ticket.findByIdAndDelete(req.params.id)
         indexArr.push(ticket.incIndex)
       })
       if(deletedTicket.incIndex > (Math.max(...indexArr))){
-          Ticket.updateOne({ticketNo:newestTicket[0].ticketNo},{$inc:{incIndex:1}})
+          Ticket.updateOne({ticketNo:newestTickets[0].ticketNo},{$inc:{incIndex:1}})
           .then(ticketTest => {
             console.log(ticketTest)
           })
