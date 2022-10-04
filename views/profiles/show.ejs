@@ -1,54 +1,58 @@
 <%- include('../partials/html-head') %>
 <link rel="stylesheet" href="/stylesheets/profiles/showProfile.css">
 <%- include('../partials/nav') %>
-<main>
-  <h1><%= profile.name %> </h1>
-  <img src="<%= profile.avatar %> " alt="<%= profile.name %> avatar">
-  <h2><%= profile?.role %>, <%= profile?.org.name %></h2>
-  <h3>Contact Info</h3>
-  <p>Phone Number: <%= profile.phoneNo ? profile.phoneNo: 'N/A' %> </p>
-  <p>Email: <%= profile.email ? profile.email: 'N/A' %> </p>
-  <% if (isSelf) { %>
-   <form action="/profiles/<%= profile._id %>/edit">
-    <button class="btn btn-primary" type="submit">Edit</button>
-   </form>
-  <% } %>
+    <main>
+      <h1>
+        <%= profile.name %>
+      </h1>
+      <img src="<%= profile.avatar %> " alt="<%= profile.name %> avatar">
+      <h2>
+        <%= profile?.role %>, <%= profile?.org.name %>
+      </h2>
+      <h3>Contact Info</h3>
+      <p>Phone Number: <%= profile.phoneNo ? profile.phoneNo: 'N/A' %>
+      </p>
+      <p>Email: <%= profile.email ? profile.email: 'N/A' %>
+      </p>
+      <% if (isSelf) { %>
+        <form action="/profiles/<%= profile._id %>/edit">
+          <button class="btn btn-primary" type="submit">Edit</button>
+        </form>
+        <% } %>
+          <%if(tickets.length> 0){%>
+            <table class="table">
+              <thead>
+                <th>Ticket Name</th>
+                <th>Ticket Number</th>
+                <th>Created Date</th>
+                <th>Last Updated</th>
+              </thead>
+              <tbody>
+                <% tickets.forEach(ticket=> { %>
+                  <% if (ticket.owner.equals(user?.profile._id) || userProfile.isAdmin) { %>
+                    <tr>
+                      <td>
+                        <a href="/tickets/<%= ticket.id %>">
+                          <%= ticket.name %>
+                        </a>
 
-  <%if(tickets.length > 0){%>
-  <table class="table">
-    <thead>
-      <th>Ticket Name</th>
-      <th>Ticket Number</th>
-      <th>Created Date</th>
-      <th>Last Updated</th>
-    </thead>
-    <tbody>
-      <% tickets.forEach(ticket=> { %>
-        <% if (ticket.owner.equals(user?.profile._id) || userProfile.isAdmin) { %>
-          <tr>
-            <td>
-              <a href="/tickets/<%= ticket.id %>"><%= ticket.name %></a>
-              
-            </td>
-            <td>
-              <%= ticket.ticketNo %>
-            </td>
-            <td>
-              <%= ticket.createdAt.toDateString() %>
-            </td>
-            <td>
-              <%= ticket.updatedAt.toDateString() %>
-            </td>
-          </tr>
-
-          <% } %>
-
-            <% }) %>
-    </tbody>
-  </table>
-  <%} else {%>
-    <h3>No Tickets for This User</h3>
-    <% } %> 
-</main>
-
+                      </td>
+                      <td>
+                        <%= ticket.ticketNo %>
+                      </td>
+                      <td>
+                        <%= ticket.createdAt.toDateString() %>
+                      </td>
+                      <td>
+                        <%= ticket.updatedAt.toDateString() %>
+                      </td>
+                    </tr>
+                    <% } %>
+                      <% }) %>
+              </tbody>
+            </table>
+            <%} else {%>
+              <h3>No Tickets for This User</h3>
+              <% } %>
+    </main>
 <%- include('../partials/footer') %>

@@ -1,5 +1,5 @@
 <%- include('../partials/html-head') %>
-  <%- include('../partials/nav') %>
+<%- include('../partials/nav') %>
 
     <main>
       <table class="table">
@@ -15,8 +15,10 @@
             <% if (ticket.owner.equals(user?.profile._id) || profile?.isAdmin) { %>
               <tr>
                 <td>
-                  <a href="/tickets/<%= ticket.id %>"><%= ticket.name %></a>
-                  
+                  <a href="/tickets/<%= ticket.id %>">
+                    <%= ticket.name %>
+                  </a>
+
                 </td>
                 <td>
                   <%= ticket.ticketNo %>
@@ -29,7 +31,7 @@
                 </td>
                 <td>
                   <form action="/tickets/<%= ticket.id %>?_method=DELETE" method="POST">
-                  <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                   </form>
                 </td>
               </tr>
@@ -42,4 +44,4 @@
 
 
     </main>
-    <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>

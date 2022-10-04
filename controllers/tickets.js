@@ -36,46 +36,43 @@ function create(req, res) {
   req.body.owner = req.user.profile._id
   req.body.status = "Open"
   Ticket.find().sort({ createdAt: -1 })
-  .then(oldTickets => {
-    console.log(oldTickets[0])
-    if(oldTickets[0]){
-      console.log(oldTickets.incIndex)
-      req.body.ticketNo = oldTickets[0].incIndex
-      req.body.incIndex = oldTickets[0].incIndex+1
-    }
-    Ticket.create(req.body)
-    .then(ticket => {
-      res.redirect('/tickets')
+    .then(oldTickets => {
+      if (oldTickets[0]) {
+        req.body.ticketNo = oldTickets[0].incIndex
+        req.body.incIndex = oldTickets[0].incIndex + 1
+      }
+      Ticket.create(req.body)
+        .then(ticket => {
+          res.redirect('/tickets')
+        })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
     })
-    .catch(err => {
-      console.log(err)
-      res.redirect('/')
-    })
-  })
 }
 
-function deleteTicket(req,res){
-console.log("I will delete a ticket")
-Ticket.findByIdAndDelete(req.params.id)
-.then(deletedTicket => {
-  Ticket.find().sort({ createdAt: -1 })
-  .then(newestTickets => {
-    Ticket.find({})
-    .then(allTickets => {
-      let indexArr = []
-      allTickets.forEach(ticket => {
-        indexArr.push(ticket.incIndex)
-      })
-      if(deletedTicket.incIndex > (Math.max(...indexArr))){
-          Ticket.updateOne({ticketNo:newestTickets[0].ticketNo},{$inc:{incIndex:1}})
-          .then(ticketTest => {
-            console.log(ticketTest)
-          })
-      }
-      res.redirect('/tickets')
+function deleteTicket(req, res) {
+  Ticket.findByIdAndDelete(req.params.id)
+    .then(deletedTicket => {
+      Ticket.find().sort({ createdAt: -1 })
+        .then(newestTickets => {
+          Ticket.find({})
+            .then(allTickets => {
+              let indexArr = []
+              allTickets.forEach(ticket => {
+                indexArr.push(ticket.incIndex)
+              })
+              if (deletedTicket.incIndex > (Math.max(...indexArr))) {
+                Ticket.updateOne({ ticketNo: newestTickets[0].ticketNo }, { $inc: { incIndex: 1 } })
+                  .then(ticketTest => {
+                    console.log(ticketTest)
+                  })
+              }
+              res.redirect('/tickets')
+            })
+        })
     })
-  })
-})
 }
 function show(req, res) {
   Ticket.findById(req.params.id)
@@ -117,16 +114,13 @@ function show(req, res) {
 }
 
 function addComment(req, res) {
-
   Ticket.findById(req.params.id)
-
     .then(ticket => {
       req.body.owner = req.user.profile._id
       ticket.comments.push(req.body)
       ticket.save()
         .then(() => {
           res.redirect(`/tickets/${ticket._id}`)
-
         })
         .catch(err => {
           console.log(err)
@@ -144,7 +138,6 @@ function edit(req, res) {
     .then(ticket => {
       Profile.find({ isAdmin: true })
         .then(admins => {
-          console.log(admins)
           res.render('tickets/edit', {
             ticket: ticket,
             title: `Edit ${ticket.ticketNo}`,
@@ -163,7 +156,6 @@ function edit(req, res) {
 }
 
 function update(req, res) {
-  console.log(req.body, req.params)
   Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(ticket => {
       res.redirect(`/tickets/${ticket._id}`)

@@ -1,6 +1,5 @@
 <%- include('../partials/html-head') %>
   <%- include('../partials/nav') %>
-
     <main>
       <h1>All Users</h1>
       <div class="card-container">
@@ -13,7 +12,9 @@
                   <%= profile.name %>
                 </h1>
                 <form action="/profiles/adminList/<%= profile._id %> " method="POST">
-                  <button type="submit" class="btn <%= profile.isAdmin ? 'btn-danger':'btn-primary' %> "><%= profile.isAdmin ? 'Demote':'Elevate'  %> </button>
+                  <button type="submit" class="btn <%= profile.isAdmin ? 'btn-danger':'btn-primary' %> ">
+                    <%= profile.isAdmin ? 'Demote' :'Elevate' %>
+                  </button>
                 </form>
               </div>
             </div>
@@ -21,5 +22,4 @@
           <% }) %>
       </div>
     </main>
-
     <%- include('../partials/footer') %>
