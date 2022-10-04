@@ -71,7 +71,19 @@ function deleteTicket(req, res) {
               }
               res.redirect('/tickets')
             })
+            .catch(err => {
+              console.log(err)
+              res.redirect('/')
+            })
         })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 function show(req, res) {
@@ -172,6 +184,10 @@ function deleteComment(req, res) {
       ticket.comments.remove({ _id: req.params.commentId })
       ticket.save()
       res.redirect(`/tickets/${req.params.ticketId}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 

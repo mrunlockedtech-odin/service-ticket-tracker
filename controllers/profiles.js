@@ -9,6 +9,10 @@ function index(req, res) {
         profiles: profiles
       })
     })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
 }
 function adminPass(req, res) {
   Profile.findById(req.user.profile._id)
@@ -35,8 +39,12 @@ function showAdmins(req, res) {
       .then(profile => {
         profile.isAdmin = true
         profile.save()
+        res.redirect('/profiles/adminList')
       })
-    res.redirect('/profiles/adminList')
+      .catch(err => {
+        console.log(err)
+        res.redirect('/')
+      })
   } else {
     res.render('profiles/admAuth', {
       wrongPass: true,
@@ -55,9 +63,17 @@ function showAdminsList(req, res) {
               profiles: profiles
             })
           })
+          .catch(err => {
+            console.log(err)
+            res.redirect('/')
+          })
       } else {
         res.render('error')
       }
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 
@@ -68,6 +84,10 @@ function adminStatusChange(req, res) {
       profile.isAdmin = !(profile.isAdmin)
       profile.save()
       res.redirect('/profiles/adminList')
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 
@@ -88,7 +108,19 @@ function show(req, res) {
                 isSelf
               })
             })
+            .catch(err => {
+              console.log(err)
+              res.redirect('/')
+            })
         })
+        .catch(err => {
+          console.log(err)
+          res.redirect('/')
+        })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 
@@ -100,6 +132,10 @@ function edit(req, res) {
         profile: profile
       })
     })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
 }
 
 function update(req, res) {
@@ -107,6 +143,10 @@ function update(req, res) {
   Profile.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(() => {
       res.redirect(`/profiles/${req.params.id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
     })
 }
 
