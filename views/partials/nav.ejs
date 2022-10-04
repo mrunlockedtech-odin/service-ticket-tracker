@@ -12,7 +12,7 @@
 
 
     <section id="googleAuth">
-      <a href=""><%= user?.profile.name %> </a>
+      <a href="/profiles/<%= user?.profile._id %> "><%= user?.profile.name %> </a>
       <% if (user) { %>
         <a href="/auth/logout" class="right">
           <button class="btn btn-danger" type="submit">Logout</button>
