@@ -4,10 +4,15 @@
 <main>
   <h1><%= profile.name %> </h1>
   <img src="<%= profile.avatar %> " alt="<%= profile.name %> avatar">
-  <h2><%= profile?.title %>, <%= profile?.org.name %></h2>
+  <h2><%= profile?.role %>, <%= profile?.org.name %></h2>
   <h3>Contact Info</h3>
   <p>Phone Number: <%= profile.phoneNo ? profile.phoneNo: 'N/A' %> </p>
   <p>Email: <%= profile.email ? profile.email: 'N/A' %> </p>
+  <% if (isSelf) { %>
+   <form action="/profiles/<%= profile._id %>/edit">
+    <button class="btn btn-primary" type="submit">Edit</button>
+   </form>
+  <% } %>
 
   <%if(tickets.length > 0){%>
   <table class="table">

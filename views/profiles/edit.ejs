@@ -1,0 +1,23 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <h1>Edit Profile</h1>
+  <form action="/profiles/<%= profile._id %>?_method=PUT" method="POST" id="ticket-form">
+    <label>
+      Role:
+      <input type="text" name="role" id="user-role" value="<%= profile.role %>">
+    </label>
+    <label>
+      Phone Number:
+      <input type="text" name="phoneNo" id="user-email" value="<%= profile.phoneNo %>">
+    </label>
+    <label>
+      Email:
+      <input type="text" name="email" id="user-email" value="<%= profile.email %>">
+    </label>
+    <button type="submit" class="btn btn-primary">Edit</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

@@ -80,11 +80,13 @@ function show(req, res) {
         .then(tickets => {
           Profile.findById(req.user.profile._id)
             .then(userProfile => {
+              const isSelf = profile._id.equals(req.user.profile._id)
               res.render('profiles/show', {
                 profile: profile,
                 title: profile.name,
                 tickets: tickets,
-                userProfile:userProfile
+                userProfile:userProfile,
+                isSelf
               })
 
             })
@@ -94,6 +96,24 @@ function show(req, res) {
     })
 }
 
+function edit(req,res){
+  Profile.findById(req.params.id)
+  .then(profile => {
+    res.render(`profiles/edit`, {
+      title: `Edit ${profile.name}`,
+      profile:profile
+    })
+  })
+}
+
+function update(req,res){
+  console.log(req.body)
+  Profile.findByIdAndUpdate(req.params.id,req.body, {new:true})
+  .then(()=> {
+    res.redirect(`/profiles/${req.params.id}`)
+  })
+}
+
 export {
   index,
   adminPass,
@@ -101,4 +121,6 @@ export {
   showAdminsList,
   adminStatusChange,
   show,
+  edit,
+  update,
 }
