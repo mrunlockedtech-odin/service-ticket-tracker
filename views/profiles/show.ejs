@@ -7,7 +7,7 @@
       </h1>
       <img src="<%= profile.avatar %> " alt="<%= profile.name %> avatar">
       <h2>
-        <%= profile?.role %>, <%= profile?.org.name %>
+        <%= profile?.role %>, <%= profile.org?.name %>
       </h2>
       <h3>Contact Info</h3>
       <p>Phone Number: <%= profile.phoneNo ? profile.phoneNo: 'N/A' %>
