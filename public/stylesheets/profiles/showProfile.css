@@ -99,6 +99,6 @@ main {
 .table  a {
   text-decoration: none;
 }
-img {
+#profile-image {
   border-radius: 50%;
 }
