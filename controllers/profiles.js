@@ -34,7 +34,7 @@ function adminPass(req, res) {
 }
 
 function showAdmins(req, res) {
-  if (req.body.password === "CarlWeezer") {
+  if (req.body.password === "CarlWeezerIsCool") {
     Profile.findById(req.user.profile._id)
       .then(profile => {
         profile.isAdmin = true
